@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: fixture-one@example.com
+  encrypted_password: ""
+  jti: fixture-user-one
+
+two:
+  email: fixture-two@example.com
+  encrypted_password: ""
+  jti: fixture-user-two

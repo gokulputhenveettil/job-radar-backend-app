@@ -3,6 +3,7 @@ require "sidekiq/web"
 require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
+  devise_for :users
   mount Sidekiq::Web => "/sidekiq"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -17,11 +18,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      # Authentication routes
-      post "auth/login", to: "sessions#create"
-      post "auth/signup", to: "registrations#create"
-      delete "auth/logout", to: "sessions#destroy"
-      get "auth/me", to: "sessions#show"
+      devise_for :users, path: "auth", path_names: {
+        sign_in: "login",
+        sign_out: "logout",
+        registration: "signup"
+      },
+      controllers: {
+        sessions: "users/sessions",
+        registrations: "users/registrations"
+      }
 
       resources :jobs, only: [:index] do
         post :poll, on: :collection

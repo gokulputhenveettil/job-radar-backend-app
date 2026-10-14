@@ -1,23 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  linkedin_job_id: MyString
+  linkedin_job_id: fixture-job-1
   title: MyString
   company: MyString
   location: MyString
   url: MyString
   posted_at: 2026-10-14 11:07:30
   notified: false
-  saved: false
-  applied: false
 
 two:
-  linkedin_job_id: MyString
+  linkedin_job_id: fixture-job-2
   title: MyString
   company: MyString
   location: MyString
   url: MyString
   posted_at: 2026-10-14 11:07:30
   notified: false
-  saved: false
-  applied: false

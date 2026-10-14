@@ -60,8 +60,6 @@ class LinkedinJobMonitor
         url: url,
         posted_at: time_elem ? Time.zone.parse(time_elem["datetime"]) : Time.current,
         notified: false,
-        saved: false,
-        applied: false,
         created_at: Time.current,
         updated_at: Time.current
       }
