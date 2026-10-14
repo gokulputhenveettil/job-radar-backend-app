@@ -38,7 +38,7 @@ gem "rack-cors"
 gem "httparty"
 gem "nokogiri"
 
-gem "redis", "~> 5.0"
+gem "redis", "~> 6.0"
 gem "sidekiq"
 gem "sidekiq-cron"
 gem "ruby-openai"
