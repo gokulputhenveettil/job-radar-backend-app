@@ -3,7 +3,7 @@ module Api
   module V1
     class JobsController < ApplicationController
       before_action :authenticate_api_v1_user!, only: [ :toggle_saved, :toggle_applied, :dismiss ]
-      before_action :set_job, only: [ :toggle_saved, :toggle_applied, :dismiss ]
+      before_action :set_job, only: [ :toggle_saved, :toggle_applied, :dismiss, :generate_cover_letter ]
 
       # GET /api/v1/jobs
       def index
@@ -62,6 +62,14 @@ module Api
       def dismiss
         user_status.update!(dismissed: true)
         render json: { success: true, id: @job.id }
+      end
+
+      def generate_cover_letter
+        format_type = params[:format_type].presence || "inmail"
+
+        GenerateCoverLetterJob.perform_later(@job.id, format_type)
+
+        render json: { status: "queued", job_id: @job.id, format_type: format_type }, status: :accepted
       end
 
       private

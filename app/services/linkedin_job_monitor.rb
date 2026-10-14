@@ -58,6 +58,7 @@ class LinkedinJobMonitor
         company: company_elem&.text&.strip || "Unknown Company",
         location: location_elem&.text&.strip || @location,
         url: url,
+        description: fetch_description(url),
         posted_at: time_elem ? Time.zone.parse(time_elem["datetime"]) : Time.current,
         notified: false,
         created_at: Time.current,
@@ -66,5 +67,31 @@ class LinkedinJobMonitor
     end
 
     jobs
+  end
+
+  def fetch_description(url)
+    response = HTTParty.get(
+      url,
+      headers: {
+        "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "Accept-Language" => "en-US,en;q=0.9"
+      },
+      timeout: 15
+    )
+    unless response.code == 200
+      Rails.logger.warn("[LinkedinJobMonitor] Description request failed with status #{response.code} for #{url}")
+      return
+    end
+
+    parse_description(response.body)
+  rescue StandardError => e
+    Rails.logger.warn("[LinkedinJobMonitor] Failed to fetch description for #{url}: #{e.message}")
+    nil
+  end
+
+  def parse_description(html)
+    doc = Nokogiri::HTML(html)
+    description = doc.at_css(".show-more-less-html__markup, .description__text, .description__text--rich")
+    description&.xpath(".//text()")&.map(&:text)&.join(" ")&.squish
   end
 end
