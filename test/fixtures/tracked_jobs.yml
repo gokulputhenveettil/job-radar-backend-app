@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  linkedin_job_id: MyString
+  title: MyString
+  company: MyString
+  location: MyString
+  url: MyString
+  posted_at: 2026-10-14 11:07:30
+  notified: false
+  saved: false
+  applied: false
+
+two:
+  linkedin_job_id: MyString
+  title: MyString
+  company: MyString
+  location: MyString
+  url: MyString
+  posted_at: 2026-10-14 11:07:30
+  notified: false
+  saved: false
+  applied: false

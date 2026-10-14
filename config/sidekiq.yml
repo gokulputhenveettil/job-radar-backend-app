@@ -1,0 +1,5 @@
+# backend/config/sidekiq.yml
+:concurrency: 5
+:queues:
+  - default
+  - low_priority

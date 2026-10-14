@@ -1,0 +1,27 @@
+production:
+  hourly_job_monitor:
+    class: MonitorLinkedinJobsJob
+    args:
+      recipient_email: "you@example.com"
+      keywords: "Ruby on Rails"
+      location: "Remote"
+    schedule: "every hour"
+
+  daily_job_cleanup:
+    class: CleanupOldTrackedJobsJob
+    args: [30] # Purges non-saved, non-applied records older than 30 days
+    schedule: "0 2 * * *" # Every day at 2:00 AM UTC
+
+development:
+  hourly_job_monitor:
+    class: MonitorLinkedinJobsJob
+    args:
+      recipient_email: "you@example.com"
+      keywords: "Ruby on Rails"
+      location: "Remote"
+    schedule: "every hour"
+
+  daily_job_cleanup:
+    class: CleanupOldTrackedJobsJob
+    args: [30]
+    schedule: "0 2 * * *"
